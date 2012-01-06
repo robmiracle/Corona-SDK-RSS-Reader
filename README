@@ -1,0 +1,52 @@
+This is the new version of the RSS reader for Corona SDK.
+
+It's a much more simplified project eliminating all of the UI bits that seemed to confuse people.
+
+Files now include:
+
+main.lua -- a sample on how to use it, including network download code.
+utility.lua -- contains the wonderful PHP style print_r function
+rss.lua -- the feed parser.  It has been updated to return the entire feed, not just the items list
+xml.lua -- required to parse the RSS file.
+
+Usage:
+
+However you want, download the RSS file you want to parse and store it in one of your sandbox file directories such as:
+
+system.TemporaryDirectory
+system.DocumentsDirectory
+
+or preferably
+
+system.CachesDirectory
+
+You need the latest daily build (721) to fully use the system.CachesDirectory since network.download didn't know how to until that daily build.
+
+Then simply call the RSS parser:
+
+    local myfeed = rss.feed(feedFileName, feedPath)
+
+such as:
+
+    local myfeed = rss.feed("index.rss", system.CachesDirectory)
+
+and you will be returned a Lua table into myfeed.
+
+The table will have entries for each thing returned in the RSS feed, like
+
+    myfeed.title
+    myfeed.link
+
+etc.
+
+The list of items is a table in myfeed called items:
+
+    stories = myfeed.items
+
+then each entry in that table have the various fields for each field.
+
+It should be noted that the Dublin Core creator field is supported and its put into the myfeed.dc_creator field.
+The content namespace field is supported on individual items only as in myfeed.items[i].content_encoded.
+
+No other namespace is supported at this time.  Though I may add in limited supoort for some media and iTunes name spaces in the future.
+
