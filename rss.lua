@@ -50,8 +50,8 @@ function feed(filename, base)
         if item.name == "image" then feed.image = item.value end
         if item.name == "rating" then feed.rating = item.value end
         feed.sy = {}
-        if item.name == "sy.updateFrequency" then feed.sy.updateFrequency = item.value end
-        if item.name == "sy.updatePeriod" then feed.sy.updatePeriod = item.value end
+        if item.name == "sy:updateFrequency" then feed.sy.updateFrequency = item.value end
+        if item.name == "sy:updatePeriod" then feed.sy.updatePeriod = item.value end
 
         if item.name == "item" then -- we have a story batman!
             --utility.print_r(item.child)

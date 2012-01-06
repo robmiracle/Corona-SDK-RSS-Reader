@@ -1,8 +1,11 @@
 local rss = require("rss")
+local atom = require("atom")
 local print_r = require("utility").print_r
 
-local feedURL = "http://blog.anscamobile.com/feed/"
-local feedName = "index.rss"
+--local feedURL = "http://blog.anscamobile.com/feed/"
+local feedURL = "http://daringfireball.net/index.xml"
+--local feedName = "index.rss"
+local feedName = "index.xml"
 local baseDir = system.CachesDirectory
 
 function displayFeed(feedName, feedURL)
@@ -20,6 +23,18 @@ print("entering displayFeed", feedName, feedURL)
         print("Got ", #stories, " stories")
         --print_r(stories)
     end
+
+    local function processAtomFeed(file, path)
+        print("Parsing the feed")
+        local story = {}
+        local feed = atom.feed(file, path)
+        print_r(feed)
+        local stories = feed.entries
+        native.setActivityIndicator( false )
+        print("Num stories: " .. #stories)
+        print("Got ", #stories, " stories")
+        --print_r(stories)
+    end
     
     local function onAlertComplete( event )
         return true
@@ -32,7 +47,7 @@ print("entering displayFeed", feedName, feedURL)
                                         { "OK" }, onAlertComplete )
         else
             print("calling processRSSFeed because the feed is avaialble")
-            processRSSFeed(feedName, baseDir)
+            processAtomFeed(feedName, baseDir)
         end
         return true
     end
@@ -55,7 +70,7 @@ print("entering displayFeed", feedName, feedURL)
             if fh then
                 io.close(fh)
                 print("calling processRSSfeed because the network isn't reachable")
-                processRSSFeed(feedName, baseDir)
+                processAtomFeed(feedName, baseDir)
             else
                 local alert = native.showAlert( "RSS", "Feed temporarily unavaialble.", 
                                             { "OK" }, onAlertComplete )
