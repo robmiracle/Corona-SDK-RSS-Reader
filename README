@@ -1,3 +1,24 @@
+****** N O T E *******
+
+Running this main.lua will result in a BLACK SCREEN in the simulator.  This is on purpose.  Please read this paragraph
+if you don't read anything else!!!!   I have no idea what your going to do with the data.  This project isn't about
+displaying an RSS feed.  It's about **PARSING** an RSS feed and giving you a table of the results.  As such, I only
+data to the console.  It's up to you to figure out what to do with it.  Create buttons, a tableView or a swirling animation
+of the story headlines.  That's all on you.
+
+******** NOTE #2 -- Please read this second paragraph!!!!  *********
+This project includes code to parse two different feeds:  RSS2.0 and Atom.   The sample in main.lua is currently set to call
+the Atom processor, not the RSS2.0 procesor.  If you want to feed this an RSS2.0 feed, please change line 50 on main.lua to
+
+processRSSFeed()
+
+instead of
+
+processAtomFeed()
+
+It will save you a lot of headache in the end.
+
+
 This is the new version of the RSS reader for Corona SDK.
 
 It's a much more simplified project eliminating all of the UI bits that seemed to confuse people.
